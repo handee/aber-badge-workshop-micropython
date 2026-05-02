@@ -3,7 +3,7 @@ import urandom
 import time
 
 # Active-low RGB LED: duty_u16=0 - full on, 65535 - off
-_led_r = PWM(Pin(22), freq=1000, duty_u16=65535)
+_led_r = PWM(Pin(4), freq=1000, duty_u16=65535)
 _led_g = PWM(Pin(16), freq=1000, duty_u16=65535)
 _led_b = PWM(Pin(17), freq=1000, duty_u16=65535)
 
