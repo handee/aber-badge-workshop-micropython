@@ -3,7 +3,7 @@ import time
 print("Starting...")
 
 import machine
-spi_bus = machine.SPI.Bus(host=1, mosi=13, miso=12, sck=14)
+spi_bus = machine.SPI.Bus(host=1, mosi=13, sck=14)
 
 import lcd_bus
 display_bus = lcd_bus.SPIBus(spi_bus=spi_bus, freq=24_000_000, dc=2, cs=15)
@@ -12,8 +12,8 @@ import lvgl as lv
 import ili9341
 display = ili9341.ILI9341(
      data_bus=display_bus,
-     display_width=240,
-     display_height=320,
+     display_width=320,
+     display_height=240,
      backlight_pin=21,
      backlight_on_state=ili9341.STATE_PWM,
      color_space=lv.COLOR_FORMAT.RGB565,
