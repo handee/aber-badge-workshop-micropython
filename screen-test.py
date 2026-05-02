@@ -17,7 +17,7 @@ display = ili9341.ILI9341(
      backlight_pin=21,
      backlight_on_state=ili9341.STATE_PWM,
      color_space=lv.COLOR_FORMAT.RGB565,
-     color_byte_order=ili9341.BYTE_ORDER_BGR,
+     color_byte_order=ili9341.BYTE_ORDER_RGB,
      rgb565_byte_swap=1
 )
 display.set_power(True)

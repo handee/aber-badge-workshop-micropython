@@ -12,12 +12,12 @@ import lvgl as lv
 import ili9341
 display = ili9341.ILI9341(
     data_bus=display_bus,
-    display_width=240,
-    display_height=320,
+    display_width=320,
+    display_height=240,
     backlight_pin=21,
     backlight_on_state=ili9341.STATE_PWM,
     color_space=lv.COLOR_FORMAT.RGB565,
-    color_byte_order=ili9341.BYTE_ORDER_BGR,
+    color_byte_order=ili9341.BYTE_ORDER_RGB,
     rgb565_byte_swap=1
 )
 display.set_power(True)
@@ -30,11 +30,11 @@ display.set_backlight(100)
 import xpt2046
 
 class _TouchCal:
-    # Identity affine transform + X-axis mirror to correct hardware orientation.
-    alphaX = 1.0; betaX = 0.0; deltaX = 0.0
-    alphaY = 0.0; betaY = 1.0; deltaY = 0.0
+    # Identity affine transform + X&Y-axis mirror to correct hardware orientation.
+    alphaX = 0.0; betaX = 1.33333; deltaX = 0.0
+    alphaY = 0.75; betaY = 0.0; deltaY = 0.0
     mirrorX = True
-    mirrorY = False
+    mirrorY = True
 
 indev = xpt2046.XPT2046(device=touch_device, touch_cal=_TouchCal())
 
@@ -44,7 +44,7 @@ task_handler.TaskHandler()
 from machine import PWM, Pin
 
 # Active-low RGB LED: duty_u16=0 - full on, 65535 - off
-_led_r = PWM(Pin(22), freq=1000, duty_u16=65535)
+_led_r = PWM(Pin(4), freq=1000, duty_u16=65535)
 _led_g = PWM(Pin(16), freq=1000, duty_u16=65535)
 _led_b = PWM(Pin(17), freq=1000, duty_u16=65535)
 
@@ -68,8 +68,8 @@ COLORS = [
 BTN_W = 100
 BTN_H = 60
 GAP = 10
-START_X = (240 - BTN_W * 2 - GAP) // 2
-START_Y = (320 - BTN_H * 2 - GAP) // 2
+START_X = (320 - BTN_W * 2 - GAP) // 2
+START_Y = (240 - BTN_H * 2 - GAP) // 2
 
 _current_color = None
 
